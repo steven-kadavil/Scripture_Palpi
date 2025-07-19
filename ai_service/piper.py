@@ -61,7 +61,7 @@ def download_all_voices():
     downloaded_voices = []
     
     for voice in voices:
-        print(f"\n📥 Checking {voice['name']}...")
+        print(f"\n📥 Processing {voice['name']}...")
         
         # Check if both files exist
         if os.path.exists(voice['model']) and os.path.exists(voice['config']):
@@ -70,6 +70,7 @@ def download_all_voices():
             continue
         
         # Download missing files
+        download_success = True
         for url in voice['urls']:
             filename = url.split('/')[-1]
             if not os.path.exists(filename):
@@ -79,21 +80,17 @@ def download_all_voices():
                     print(f"✅ Downloaded {filename}")
                 except subprocess.CalledProcessError as e:
                     print(f"❌ Failed to download {filename}: {e}")
+                    download_success = False
                     break
-        else:
+        
+        if download_success:
             downloaded_voices.append(voice)
+            print(f"✅ {voice['name']} ready for testing!")
     
     return downloaded_voices
 
 def test_all_voices():
     """Test all downloaded voices with spiritual content"""
-    
-    spiritual_messages = [
-        "Peace be with you. God's love surrounds us all.",
-        "In times of darkness, remember that light always returns.",
-        "Faith is the bridge between dreams and reality.",
-        "You are loved beyond measure, just as you are."
-    ]
     
     voices = download_all_voices()
     
@@ -104,8 +101,8 @@ def test_all_voices():
     print(f"\n🎤 Testing {len(voices)} voices...")
     print("=" * 60)
     
-    for voice in voices:
-        print(f"\n🎵 Testing: {voice['name']}")
+    for i, voice in enumerate(voices, 1):
+        print(f"\n🎵 Voice {i}/{len(voices)}: {voice['name']}")
         print("-" * 40)
         
         # Test with one spiritual message
@@ -119,6 +116,8 @@ def test_all_voices():
         try:
             # Generate speech
             output_file = f"test_{voice['name'].replace(' ', '_').replace('(', '').replace(')', '')}.wav"
+            print(f"🔊 Generating audio with {voice['model']}...")
+            
             subprocess.run([
                 'piper', '--model', voice['model'],
                 '--output_file', output_file,
@@ -133,9 +132,10 @@ def test_all_voices():
             os.remove('temp_test.txt')
             os.remove(output_file)
             
-            choice = input("\nPress Enter for next voice, or 'q' to quit: ")
-            if choice.lower() == 'q':
-                break
+            if i < len(voices):  # Don't ask after the last voice
+                choice = input("\nPress Enter for next voice, or 'q' to quit: ")
+                if choice.lower() == 'q':
+                    break
                 
         except subprocess.CalledProcessError as e:
             print(f"❌ Error with {voice['name']}: {e}")
