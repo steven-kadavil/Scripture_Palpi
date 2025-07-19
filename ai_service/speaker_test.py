@@ -29,8 +29,8 @@ def test_speaker():
         
         # Use first available voice
         if voices:
-            engine.setProperty('voice', voices[51].id)
-            print(f"Using voice: {voices[51].name}")
+            engine.setProperty('voice', voices[73].id)
+            print(f"Using voice: {voices[73].name}")
         
         # Test messages
         test_messages = [
