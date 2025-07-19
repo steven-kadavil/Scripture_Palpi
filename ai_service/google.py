@@ -7,6 +7,7 @@ def google_tts_test():
         "My name is Stephen and I'm testing the audio system.",
         "God is real and this speaker is working perfectly!",
         "Testing one, two, three. Can you hear me clearly?"
+        "Power rangers RPM Get in Gear. fucks"
     ]
     
     for i, message in enumerate(messages, 1):
