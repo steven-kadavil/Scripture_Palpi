@@ -23,8 +23,9 @@ def test_speaker():
             print(f"Voice {i}: {voice.name} ({voice.id})")
         
         # Set properties
-        engine.setProperty('rate', 150)    # Speed of speech
-        engine.setProperty('volume', 0.9)  # Volume (0.0 to 1.0)
+        engine.setProperty('rate', 200)    # Speed of speech
+        engine.setProperty('volume', 0.5)  # Volume (0.0 to 1.0)
+        engine.setProperty('voice', voices[51].id)
         
         # Use first available voice
         if voices:
