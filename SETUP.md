@@ -15,3 +15,12 @@ python3 -m venv venv
 source venv/bin/activate
 
 pip install -r requirements.txt
+
+sudo apt install -y espeak-ng
+
+sudo apt install -y espeak libespeak1
+
+sudo apt install -y libespeak-dev
+
+
+pip install gTTS
