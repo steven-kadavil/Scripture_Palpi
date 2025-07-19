@@ -3,7 +3,7 @@ Voice Recognition Module
 Handles microphone input and converts speech to text
 """
 
-import speech_recognition as sr
+import speech_recognition as   sr
 import pyaudio
 import threading
 import time
