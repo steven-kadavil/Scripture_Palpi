@@ -1,3 +1,6 @@
+import os
+from gtts import gTTS
+
 def google_tts_test():
     messages = [
         "Hello Stephen! This is Google Text-to-Speech.",
