@@ -32,21 +32,33 @@ def install_piper():
 
 def download_voice_model():
     """Download a voice model for Piper"""
-    voice_url = "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/amy/medium/en_US-amy-medium.onnx"
-    voice_file = "en_US-amy-medium.onnx"
+    # We need both the .onnx file AND the .json config file
+    voice_files = [
+        "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/amy/medium/en_US-amy-medium.onnx",
+        "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/amy/medium/en_US-amy-medium.onnx.json"
+    ]
     
-    if os.path.exists(voice_file):
-        print(f"✅ Voice model {voice_file} already exists!")
-        return voice_file
+    downloaded_files = []
     
-    print("📥 Downloading voice model...")
-    try:
-        subprocess.run(['wget', voice_url, '-O', voice_file], check=True)
-        print(f"✅ Downloaded {voice_file}")
-        return voice_file
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Failed to download voice model: {e}")
-        return None
+    for url in voice_files:
+        filename = url.split('/')[-1]
+        
+        if os.path.exists(filename):
+            print(f"✅ Voice file {filename} already exists!")
+            downloaded_files.append(filename)
+            continue
+        
+        print(f"📥 Downloading {filename}...")
+        try:
+            subprocess.run(['wget', url, '-O', filename], check=True)
+            print(f"✅ Downloaded {filename}")
+            downloaded_files.append(filename)
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Failed to download {filename}: {e}")
+            return None
+    
+    # Return the .onnx file name (Piper will automatically find the .json file)
+    return "en_US-amy-medium.onnx"
 
 def piper_tts_test():
     """Test Piper TTS with various messages"""
@@ -72,7 +84,7 @@ def piper_tts_test():
     ]
     
     for i, message in enumerate(messages, 1):
-        print(f"\n�� Test {i}: {message}")
+        print(f"\n Test {i}: {message}")
         
         # Create temporary text file
         with open(f'temp_message_{i}.txt', 'w') as f:
