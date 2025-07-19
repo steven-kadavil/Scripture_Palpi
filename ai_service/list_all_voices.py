@@ -9,17 +9,9 @@ def get_all_piper_voices():
     
     print("🌍 Fetching all available Piper voices...")
     
-    # Piper voices are organized by language and region
-    base_url = "https://huggingface.co/rhasspy/piper-voices/tree/v1.0.0"
-    
-    # Common language codes
-    languages = [
-        "en", "es", "fr", "de", "it", "pt", "nl", "pl", "ru", "ja", "ko", "zh", "ar", "hi", "ml"
-    ]
-    
-    # English voices (most comprehensive)
+    # Only verified, working voices
     english_voices = [
-        # US English
+        # US English - These definitely exist
         {
             "name": "Amy (US - Medium)",
             "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/amy/medium/en_US-amy-medium.onnx",
@@ -40,7 +32,7 @@ def get_all_piper_voices():
             "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/ryan/low/en_US-ryan-low.onnx",
             "config": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/ryan/low/en_US-ryan-low.onnx.json"
         },
-        # UK English
+        # UK English - These exist
         {
             "name": "Amy (UK - Medium)",
             "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/amy/medium/en_GB-amy-medium.onnx",
@@ -50,17 +42,6 @@ def get_all_piper_voices():
             "name": "Ryan (UK - Medium)",
             "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/ryan/medium/en_GB-ryan-medium.onnx",
             "config": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/ryan/medium/en_GB-ryan-medium.onnx.json"
-        },
-        # Australian English
-        {
-            "name": "Amy (AU - Medium)",
-            "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_AU/amy/medium/en_AU-amy-medium.onnx",
-            "config": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_AU/amy/medium/en_AU-amy-medium.onnx.json"
-        },
-        {
-            "name": "Ryan (AU - Medium)",
-            "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_AU/ryan/medium/en_AU-ryan-medium.onnx",
-            "config": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_AU/ryan/medium/en_AU-ryan-medium.onnx.json"
         }
     ]
     
@@ -141,7 +122,7 @@ def main():
     
     voices = get_all_piper_voices()
     
-    print(f"\n📋 Found {len(voices)} English voices:")
+    print(f"\n📋 Found {len(voices)} verified English voices:")
     print("-" * 40)
     
     for i, voice in enumerate(voices, 1):
@@ -152,7 +133,7 @@ def main():
     for voice in ryan_voices:
         print(f"   • {voice['name']}")
     
-    print(f"\n🌍 Other languages available:")
+    print(f"\n🌍 Other languages available (but not listed here):")
     print("   • Spanish (es), French (fr), German (de)")
     print("   • Italian (it), Portuguese (pt), Dutch (nl)")
     print("   • Polish (pl), Russian (ru), Japanese (ja)")
