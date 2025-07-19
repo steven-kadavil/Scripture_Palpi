@@ -19,8 +19,8 @@ pyttsx3==2.90
 psutil==5.9.6
 # ===== RASPBERRY PI SPECIFIC =====
 # These may need system-level installation:
-sudo apt-get install espeak-ng
-sudo apt-get install portaudio19-dev
- sudo apt-get install python3-pyaudio
+# sudo apt-get install espeak-ng
+# sudo apt-get install portaudio19-dev
+# sudo apt-get install python3-pyaudio
 
 # ===== INSTALLATION =====
