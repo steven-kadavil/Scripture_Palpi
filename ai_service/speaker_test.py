@@ -23,14 +23,18 @@ def test_speaker():
             print(f"Voice {i}: {voice.name} ({voice.id})")
         
         # Set properties
-        engine.setProperty('rate', 200)    # Speed of speech
-        engine.setProperty('volume', 0.5)  # Volume (0.0 to 1.0)
+        engine.setProperty('rate', 150)    # Speed of speech  
+        engine.setProperty('volume', 0.9)  # Volume (0.0 to 1.0)
     
         
         # Use first available voice
         if voices:
-            engine.setProperty('voice', voices[73].id)
-            print(f"Using voice: {voices[73].name}")
+            # Find the best English voice
+            for i, voice in enumerate(voices):
+                if 'english' in voice.name.lower() and 'default' not in voice.name.lower():
+                    engine.setProperty('voice', voice.id)
+                    print(f"Using voice: {voice.name}")
+                    break
         
         # Test messages
         test_messages = [
