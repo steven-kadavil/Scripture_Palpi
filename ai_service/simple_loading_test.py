@@ -10,9 +10,23 @@ import threading
 def play_loading_sound():
     """Play a simple loading sound"""
     try:
-        # Use USB speakers (hw:4,0) that we know work
-        subprocess.run(['aplay', '-D', 'hw:4,0', '-f', 'S16_LE', '-r', '22050', '-c', '2', '-t', 'wav'], 
-                      input=b'\x00\x00' * int(22050 * 2 * 2), check=True)
+        # Create a simple beep sound (sine wave)
+        import math
+        sample_rate = 22050
+        duration = 1.0  # 1 second
+        frequency = 800  # 800 Hz beep
+        
+        # Generate sine wave
+        samples = []
+        for i in range(int(sample_rate * duration)):
+            sample = int(32767 * math.sin(2 * math.pi * frequency * i / sample_rate))
+            samples.extend([sample & 0xFF, (sample >> 8) & 0xFF])
+        
+        audio_data = bytes(samples)
+        
+        # Play through default audio device
+        subprocess.run(['aplay', '-f', 'S16_LE', '-r', str(sample_rate), '-c', '1'], 
+                      input=audio_data, check=True)
         print("✅ Loading sound played")
     except Exception as e:
         print(f"❌ Error: {e}")
