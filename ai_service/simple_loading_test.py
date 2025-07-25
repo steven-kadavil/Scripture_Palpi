@@ -13,13 +13,13 @@ def play_loading_sound():
         # Create a simple beep sound (sine wave)
         import math
         sample_rate = 22050
-        duration = 1.0  # 1 second
-        frequency = 800  # 800 Hz beep
+        duration = 0.5  # 0.5 seconds
+        frequency = 440  # 440 Hz (A note - softer)
         
         # Generate sine wave
         samples = []
         for i in range(int(sample_rate * duration)):
-            sample = int(32767 * math.sin(2 * math.pi * frequency * i / sample_rate))
+            sample = int(16383 * math.sin(2 * math.pi * frequency * i / sample_rate))  # Lower volume
             samples.extend([sample & 0xFF, (sample >> 8) & 0xFF])
         
         audio_data = bytes(samples)
