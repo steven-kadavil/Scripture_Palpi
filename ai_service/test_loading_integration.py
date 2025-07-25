@@ -100,8 +100,8 @@ def main():
     elif choice == "2":
         test_quick_conversation()
     elif choice == "3":
-        loader = LoadingSoundSystem()
-        loader.test_loading_sounds()
+        from loading_sounds import test_loading_sounds
+        test_loading_sounds()
     else:
         print("Invalid choice!")
 

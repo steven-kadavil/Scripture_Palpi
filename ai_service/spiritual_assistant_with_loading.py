@@ -229,7 +229,8 @@ def main():
     elif choice == "2":
         assistant.test_systems()
     elif choice == "3":
-        assistant.loading_system.test_loading_sounds()
+        from loading_sounds import test_loading_sounds
+        test_loading_sounds()
     else:
         print("Invalid choice!")
 
