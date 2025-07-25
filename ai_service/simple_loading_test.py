@@ -10,9 +10,9 @@ import threading
 def play_loading_sound():
     """Play a simple loading sound"""
     try:
-        # Simple beep sound using aplay
-        subprocess.run(['aplay', '-f', 'S16_LE', '-r', '22050', '-c', '1', '-t', 'wav'], 
-                      input=b'\x00\x00' * int(22050 * 2), check=True)
+        # Use USB speakers (hw:4,0) that we know work
+        subprocess.run(['aplay', '-D', 'hw:4,0', '-f', 'S16_LE', '-r', '22050', '-c', '2', '-t', 'wav'], 
+                      input=b'\x00\x00' * int(22050 * 2 * 2), check=True)
         print("✅ Loading sound played")
     except Exception as e:
         print(f"❌ Error: {e}")
